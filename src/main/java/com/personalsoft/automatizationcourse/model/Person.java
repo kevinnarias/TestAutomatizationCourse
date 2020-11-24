@@ -1,7 +1,11 @@
 package com.personalsoft.automatizationcourse.model;
 
+import javax.validation.constraints.NotBlank;
+
 public class Person {
+	@NotBlank(message = "Name is mandatory")
 	private String name;
+	@NotBlank(message = "lastName is mandatory")
 	private String lastName;
 	private int old;
 	public String getName() {
