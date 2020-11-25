@@ -1,12 +1,19 @@
 package com.personalsoft.automatizationcourse.model;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 public class Person {
-	@NotBlank(message = "Name is mandatory")
+	@NotNull(message = "Name is mandatory")
+	@Size(max =10)
 	private String name;
 	@NotBlank(message = "lastName is mandatory")
 	private String lastName;
+	@Min(18)
+	@Max(70)
 	private int old;
 	public String getName() {
 		return name;
