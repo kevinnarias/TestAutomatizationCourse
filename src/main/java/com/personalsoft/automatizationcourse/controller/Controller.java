@@ -30,31 +30,32 @@ public class Controller {
 	public String helloWorld(@PathVariable String name,
 			@RequestParam(value = "apellido", required = false) String lastName) {
 		if (lastName == null) {
-			return "Hello, mi name is: " + name + ".";
+			return "Hello, my name is: " + name + ".";
 		}
-		return "Hello, mi name is: " + name + " " + lastName + ".";
+		return "Hello, my name is: " + name + " " + lastName + ".";
 	}
 
 	@PostMapping
-	public String helloWorldPost(@RequestBody @Valid Person person) {
-
-		return "Hello, mi name is: " + person.getName() + " " +  person.getLastName() + " " + person.getOld() + ".";
-
+	public Person helloWorldPost(@RequestBody @Valid Person person) {
+		person.setName("Diana");
+		person.setLastName(null);
+		 person.setOld(person.getOld() + 2);
+		return person;
 	}
 	
 	@PutMapping
 	public String helloWorldPut(@RequestBody Person person) {
-
-		return "Hello, mi name is: " + person.getName() + " " +  person.getLastName() + " " + person.getOld() + ".";
-
+		return "Hello, my name is: " + person.getName() + " " +  person.getLastName() + " " + person.getOld() + ".";
 	}
+	
 	
 	@DeleteMapping
 	public String helloWorldDelete(@RequestBody Person person) {
 
-		return "Hello, mi name is: " + person.getName() + " " +  person.getLastName() + " " + person.getOld() + ".";
+		return "Hello, my name is: " + person.getName() + " " +  person.getLastName() + " " + person.getOld() + ".";
 
 	}
+
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {
@@ -67,4 +68,3 @@ public class Controller {
 		return errors;
 	}
 }
-
