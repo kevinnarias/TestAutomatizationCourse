@@ -117,4 +117,47 @@ class AutomatizationCourseApplicationTests {
 		Assertions.assertEquals("There must be at least 18 in the test case", personaResultado.get("old"));
 		
 	}
+	@Test
+	//5.Validar el cambio de tipo de documento, enviando un valor diferente de CC y transformndolo a CC.
+	   void whenSendDiferentCCThenReturnCC() throws JsonProcessingException, Exception {
+		//given
+		Person persona = new Person ();
+		persona.setLastName ("Apellido");
+		persona.setName ("Nombre");
+		persona.setOld (28);
+		persona.setDocumentNumber("112345678");
+		persona.setDocumentType("TI");
+		//When
+		MvcResult result = mvc.perform(post("/api/").
+				contentType(MediaType.APPLICATION_JSON).
+				content(mapper.writeValueAsString(persona))).andReturn();
+		
+		Person personaResultado = mapper.readValue(result.getResponse().getContentAsString(),Person.class);
+		//Then
+		Assertions.assertEquals("CC", personaResultado.getDocumentType());
+	}
+
+	@SuppressWarnings("unchecked")
+	@Test
+	//6.Cuando envio campos cavios entonces validacion
+	void whenBlankThenValidation() throws JsonProcessingException, Exception {
+		//given
+		Person persona = new Person ();
+		persona.setLastName ("");
+		persona.setName ("");
+		persona.setDocumentNumber("");
+		persona.setDocumentType("");
+		//When
+		MvcResult result = mvc.perform(post("/api/").
+				contentType(MediaType.APPLICATION_JSON).
+				content(mapper.writeValueAsString(persona))).andReturn();
+		
+		Map<String, String> personaResultado = mapper.readValue(result.getResponse().getContentAsString(),Map.class);
+		//Then
+		Assertions.assertEquals( "Name is mandatory", personaResultado.get("name"));
+		Assertions.assertEquals( "lastName is mandatory", personaResultado.get("lastName"));
+		Assertions.assertEquals("There must be at least 18 in the test case", personaResultado.get("old"));
+		Assertions.assertEquals("Must be between 8 and 10 characters long", personaResultado.get("documentNumber"));
+		Assertions.assertEquals("Must be 2 characters long", personaResultado.get("documentType"));
+	}
 }

@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class Person {
-	@NotNull(message = "Name is mandatory")
+	@NotBlank(message = "Name is mandatory")
 	@Size(max =10)
 	private String name;
 	@NotBlank(message = "lastName is mandatory")
@@ -15,6 +15,7 @@ public class Person {
 	@Min(value = 18, message = "There must be at least {value} in the test case")
 	private int old;
 	
+	@Size(min = 2, max = 2, message = "Must be 2 characters long")
 	private String documentType;
 		
 	
