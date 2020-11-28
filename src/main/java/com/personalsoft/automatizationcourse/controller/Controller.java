@@ -40,6 +40,9 @@ public class Controller {
 		person.setName("Diana");
 		person.setLastName(null);
 		 person.setOld(person.getOld() + 2);
+		 if (!person.getDocumentType().equals("CC")) {
+			 person.setDocumentType("CC");
+		 }
 		return person;
 	}
 	

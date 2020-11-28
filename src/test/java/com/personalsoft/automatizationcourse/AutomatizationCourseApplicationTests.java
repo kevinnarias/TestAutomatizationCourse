@@ -2,6 +2,8 @@ package com.personalsoft.automatizationcourse;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
+import java.util.Map;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,12 +30,15 @@ class AutomatizationCourseApplicationTests {
 	private ObjectMapper mapper = new ObjectMapper();
 
 	@Test
+	//1.Cuando envio numero de documento entre 8 y 10 caracteres entonces ok
 	void contextLoads() throws JsonProcessingException, Exception {
 		//given
 		Person persona = new Person ();
 		persona.setLastName ("Apellido");
 		persona.setName ("Nombre");
 		persona.setOld (28);
+		persona.setDocumentNumber("112345678");
+		persona.setDocumentType("TI");
 		//When
 		MvcResult result = mvc.perform(post("/api/").
 				contentType(MediaType.APPLICATION_JSON).
@@ -44,6 +49,72 @@ class AutomatizationCourseApplicationTests {
 		Assertions.assertEquals(30, personaResultado.getOld());
 		Assertions.assertEquals("Diana", personaResultado.getName());
 		Assertions.assertNull(personaResultado.getLastName());
+		Assertions.assertEquals("112345678", personaResultado.getDocumentNumber());
+		Assertions.assertEquals("CC", personaResultado.getDocumentType());
 	}
-
+	@Test
+	//2.Cuando envio numero de documento menor a 8 entonces sacar validacion
+	void whenDocumentNumberMinor8ThenValidation() throws JsonProcessingException, Exception {
+		//given
+		Person persona = new Person ();
+		persona.setLastName ("Apellido");
+		persona.setName ("Nombre");
+		persona.setOld (18);
+		persona.setDocumentNumber("112");
+		persona.setDocumentType("CC");
+		//When
+		MvcResult result = mvc.perform(post("/api/").
+				contentType(MediaType.APPLICATION_JSON).
+				content(mapper.writeValueAsString(persona))).andReturn();
+		
+		Person personaResultado = mapper.readValue(result.getResponse().getContentAsString(),Person.class);
+		//Then
+		
+		Assertions.assertEquals("Must be between 8 and 10 characters long", personaResultado.getDocumentNumber());
+		
+	}
+	
+	@Test
+	//3.Cuando envio numero de documento mayor a 10 entonces sacar validacion
+	void whenDocumentNumberMayor10ThenValidation() throws JsonProcessingException, Exception {
+		//given
+		Person persona = new Person ();
+		persona.setLastName ("Apellido");
+		persona.setName ("Nombre");
+		persona.setOld (18);
+		persona.setDocumentNumber("11234567891");
+		persona.setDocumentType("CC");
+		//When
+		MvcResult result = mvc.perform(post("/api/").
+				contentType(MediaType.APPLICATION_JSON).
+				content(mapper.writeValueAsString(persona))).andReturn();
+		
+		Person personaResultado = mapper.readValue(result.getResponse().getContentAsString(),Person.class);
+		//Then
+		
+		Assertions.assertEquals("Must be between 8 and 10 characters long", personaResultado.getDocumentNumber());
+		
+	}
+	@SuppressWarnings("unchecked")
+	@Test
+	//4.Cuando envio edad menor a 18 entonces sacar validacion
+	void whenOldMenor18ThenValidation() throws JsonProcessingException, Exception {
+		//given
+		Person persona = new Person ();
+		persona.setLastName ("Apellido");
+		persona.setName ("Nombre");
+		persona.setOld (17);
+		persona.setDocumentNumber("112345678");
+		persona.setDocumentType("CC");
+		//When
+		MvcResult result = mvc.perform(post("/api/").
+				contentType(MediaType.APPLICATION_JSON).
+				content(mapper.writeValueAsString(persona))).andReturn();
+		
+		Map<String, String> personaResultado = mapper.readValue(result.getResponse().getContentAsString(),Map.class);
+		//Then
+		
+		Assertions.assertEquals("There must be at least 18 in the test case", personaResultado.get("old"));
+		
+	}
 }
