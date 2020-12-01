@@ -1,6 +1,7 @@
 package com.personalsoft.automatizationcourse;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 
 import java.util.Map;
 
@@ -47,7 +48,7 @@ class AutomatizationCourseApplicationTests {
 		Person personaResultado = mapper.readValue(result.getResponse().getContentAsString(),Person.class);
 		//Then
 		Assertions.assertEquals(30, personaResultado.getOld());
-		Assertions.assertEquals("Diana", personaResultado.getName());
+		Assertions.assertEquals("Nombre", personaResultado.getName());
 		Assertions.assertNull(personaResultado.getLastName());
 		Assertions.assertEquals("112345678", personaResultado.getDocumentNumber());
 		Assertions.assertEquals("CC", personaResultado.getDocumentType());
@@ -139,7 +140,7 @@ class AutomatizationCourseApplicationTests {
 
 	@SuppressWarnings("unchecked")
 	@Test
-	//6.Cuando envio campos cavios entonces validacion
+	//6.Cuando envio campos vacios entonces validacion
 	void whenBlankThenValidation() throws JsonProcessingException, Exception {
 		//given
 		Person persona = new Person ();
@@ -154,10 +155,77 @@ class AutomatizationCourseApplicationTests {
 		
 		Map<String, String> personaResultado = mapper.readValue(result.getResponse().getContentAsString(),Map.class);
 		//Then
-		Assertions.assertEquals( "Name is mandatory", personaResultado.get("name"));
+		//Assertions.assertEquals( "Name is mandatory", personaResultado.get("name"));
 		Assertions.assertEquals( "lastName is mandatory", personaResultado.get("lastName"));
 		Assertions.assertEquals("There must be at least 18 in the test case", personaResultado.get("old"));
 		Assertions.assertEquals("Must be between 8 and 10 characters long", personaResultado.get("documentNumber"));
 		Assertions.assertEquals("Must be 2 characters long", personaResultado.get("documentType"));
+	}
+	
+	
+	@Test
+	//7.Cuando envio formato incorrecto de email entonces validacion
+	void whenSendEmailIncorretThenValidation() throws JsonProcessingException, Exception {
+		//given
+		Person persona = new Person ();
+		persona.setLastName ("Lopera");
+		persona.setName ("Diana");
+		persona.setDocumentNumber("12345678");
+		persona.setOld (28);
+		persona.setDocumentType("CC");
+		persona.setEmail ("emailinvalido.com");
+		//When
+		MvcResult result = mvc.perform(post("/api/").
+				contentType(MediaType.APPLICATION_JSON).
+				content(mapper.writeValueAsString(persona))).andReturn();
+		
+		Person personaResultado = mapper.readValue(result.getResponse().getContentAsString(),Person.class);
+		//Then
+		Assertions.assertEquals( "The field must be valid email", personaResultado.getEmail());
+		
+	}
+	
+	@Test
+	//8.Cuando envio en tipo documento CC entonces ok
+	void WhenSendCCThenOK() throws JsonProcessingException, Exception {
+		//given
+		Person persona = new Person ();
+		persona.setLastName ("Apellido");
+		persona.setName ("Nombre");
+		persona.setOld (28);
+		persona.setDocumentNumber("112345678");
+		persona.setDocumentType("CC");
+		//When
+		MvcResult result = mvc.perform(post("/api/").
+				contentType(MediaType.APPLICATION_JSON).
+				content(mapper.writeValueAsString(persona))).andReturn();
+		
+		Person personaResultado = mapper.readValue(result.getResponse().getContentAsString(),Person.class);
+		//Then
+		Assertions.assertEquals(30, personaResultado.getOld());
+		Assertions.assertEquals("Nombre", personaResultado.getName());
+		Assertions.assertNull(personaResultado.getLastName());
+		Assertions.assertEquals("112345678", personaResultado.getDocumentNumber());
+		Assertions.assertEquals("CC", personaResultado.getDocumentType());
+	}
+	
+	@Test
+	//9.Cuando envio en tipo documento CC entonces ok con put
+	void SuccessCasePut() throws JsonProcessingException, Exception {
+		//given
+		Person persona = new Person ();
+		persona.setLastName ("Apellido");
+		persona.setName ("Nombre");
+		persona.setOld (28);
+		persona.setDocumentNumber("112345678");
+		persona.setDocumentType("CC");
+		//When
+		MvcResult result = mvc.perform(put("/api/").
+				contentType(MediaType.APPLICATION_JSON).
+				content(mapper.writeValueAsString(persona))).andReturn();
+				
+		//Then
+		Assertions.assertNotEquals("", result.getResponse().getContentAsString());
+		
 	}
 }
