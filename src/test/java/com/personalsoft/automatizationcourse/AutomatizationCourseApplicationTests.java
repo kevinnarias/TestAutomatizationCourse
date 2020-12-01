@@ -228,4 +228,25 @@ class AutomatizationCourseApplicationTests {
 		Assertions.assertNotEquals("", result.getResponse().getContentAsString());
 		
 	}
+	@Test
+	//10.Cuando envío caracteres especiales en el nombre entonces se realiza validación
+	void whenSendSpecialCharactersThenValidation() throws JsonProcessingException, Exception {
+		//given
+		Person persona = new Person ();
+		persona.setLastName ("Lopera");
+		persona.setName (".-D14n4-.");
+		persona.setDocumentNumber("12345678");
+		persona.setOld (28);
+		persona.setDocumentType("CC");
+		persona.setEmail ("email@invalido.com");
+		//When
+		MvcResult result = mvc.perform(post("/api/").
+				contentType(MediaType.APPLICATION_JSON).
+				content(mapper.writeValueAsString(persona))).andReturn();
+		
+		Person personaResultado = mapper.readValue(result.getResponse().getContentAsString(),Person.class);
+		//Then
+		Assertions.assertEquals( "Not valid special characters", personaResultado.getName());
+		
+	}
 }
