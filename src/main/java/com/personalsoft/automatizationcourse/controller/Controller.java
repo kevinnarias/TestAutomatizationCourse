@@ -36,8 +36,7 @@ public class Controller {
 	}
 
 	@PostMapping
-	public Person helloWorldPost(@RequestBody @Valid Person person) {
-		person.setName("Diana");
+	public Person helloWorldPost(@RequestBody @Valid Person person) {		
 		person.setLastName(null);
 		 person.setOld(person.getOld() + 2);
 		 if (!person.getDocumentType().equals("CC")) {
