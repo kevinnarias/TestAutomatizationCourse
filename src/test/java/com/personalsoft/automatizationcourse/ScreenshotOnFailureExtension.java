@@ -9,6 +9,8 @@ import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.extension.AfterEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
+import org.openqa.selenium.OutputType;
+import org.testcontainers.containers.BrowserWebDriverContainer;
 
 public class ScreenshotOnFailureExtension implements AfterEachCallback {
 
