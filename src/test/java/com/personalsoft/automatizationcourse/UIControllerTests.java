@@ -25,9 +25,23 @@ public class UIControllerTests {
 	void Prueba1 () {
 		this.container.getWebDriver().get("http://host.docker.internal:" + port + "/personalsoft/calculo?valor1=5&valor2=3");
 				WebElement messageElement = this.container.getWebDriver().findElementById("suma");
-				Assertions.assertEquals("El resultado de la suma es 8.0", messageElement.getText());
+				Assertions.assertEquals("El resultado de la suma es 10.0", messageElement.getText());
+				
+				messageElement = this.container.getWebDriver().findElementById("restar");
+				Assertions.assertEquals("El resultado de la resta es 2.0", messageElement.getText());
 		
 		
 	}
+	@Test
+	void PruebaError () {
+		this.container.getWebDriver().get("http://host.docker.internal:" + port + "/personalsoft/calculoError?valor1=5&valor2=");
+				WebElement messageElement = this.container.getWebDriver().findElementById("error");
+				Assertions.assertEquals("Debes agregar ambos números", messageElement.getText());
+				
+						
+		
+	}
 }
+
+
 

@@ -6,7 +6,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.4.0</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.personalsoft</groupId>
 	<artifactId>automatizationCourse</artifactId>
@@ -17,6 +17,7 @@
 	<properties>
 		<java.version>1.8</java.version>
 		<junit-jupiter.version>5.4.0</junit-jupiter.version>
+		<testcontainers.version>1.14.3</testcontainers.version>
 	</properties>
 
 	<dependencies>
@@ -24,6 +25,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+		<dependency>
+  <groupId>com.google.guava</groupId>
+  <artifactId>guava</artifactId>
+  <version>23.6-jre</version>
+  <classifier></classifier>
+</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -54,26 +61,49 @@
 			<artifactId>springfox-swagger2</artifactId>
 			<version>2.9.2</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger-ui</artifactId>
 			<version>2.9.2</version>
 		</dependency>
-		<dependency> 
-    <groupId>org.springframework.boot</groupId> 
-    <artifactId>spring-boot-starter-validation</artifactId> 
-</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<scope>provided</scope>
 		</dependency>
-			<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-thymeleaf -->
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-thymeleaf -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<version>${testcontainers.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>selenium</artifactId>
+			<version>${testcontainers.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-remote-driver</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-chrome-driver</artifactId>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
