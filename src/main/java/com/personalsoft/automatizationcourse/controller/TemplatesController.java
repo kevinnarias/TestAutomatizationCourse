@@ -30,7 +30,7 @@ public class TemplatesController {
 			@RequestParam(value = "valor2", required = false) Integer number2) {
 		
 		if (number1 == null || number2 == null) {
-			resultado.addAttribute("error", "Debes agregar ambos números ");
+			resultado.addAttribute("error", "Debes agregar ambos numeros ");
 			return "error";
 		}
 
