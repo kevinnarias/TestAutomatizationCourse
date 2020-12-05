@@ -115,7 +115,7 @@ class AutomatizationCourseApplicationTests {
 		Map<String, String> personaResultado = mapper.readValue(result.getResponse().getContentAsString(),Map.class);
 		//Then
 		
-		Assertions.assertEquals("There must be at least 18 in the test case", personaResultado.get("Age"));
+		Assertions.assertEquals("There must be at least 18 in the test case", personaResultado.get("age"));
 		
 	}
 	@Test
@@ -157,7 +157,7 @@ class AutomatizationCourseApplicationTests {
 		//Then
 		//Assertions.assertEquals( "Name is mandatory", personaResultado.get("name"));
 		Assertions.assertEquals( "lastName is mandatory", personaResultado.get("lastName"));
-		Assertions.assertEquals("There must be at least 18 in the test case", personaResultado.get("Age"));
+		Assertions.assertEquals("There must be at least 18 in the test case", personaResultado.get("age"));
 		Assertions.assertEquals("Must be between 8 and 10 characters long", personaResultado.get("documentNumber"));
 		Assertions.assertEquals("Must be 2 characters long", personaResultado.get("documentType"));
 	}

@@ -21,10 +21,18 @@ public class FormController {
 	}
 
 	@PostMapping(value = "/processForm")
+	
 	public String processForm(Model model, @ModelAttribute(value="person") Person person) {
+		if (person.getName().isBlank() || person.getLastName().isBlank()) {
+			model.addAttribute("error", "Debes ingresar ambos valores ");
+			return "error";
+		}
+
 		log.info("Persona: " + person);
 		model.addAttribute("person",person);
 		model.addAttribute("result", "Su nombre completo es: " + person.getName() + " " + person.getLastName());
 		return "concatResult";
+		
+		
 	}
 }
