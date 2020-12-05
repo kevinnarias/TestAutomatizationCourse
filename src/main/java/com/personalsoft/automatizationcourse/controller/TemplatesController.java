@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class TemplatesController {
+	
 	@GetMapping("{name}")
 	public String helloWorld(Model model, @PathVariable String name) {
 		model.addAttribute("mensaje", "Hola " + name + ", buenas noches");
 		return "index";
-
 	}
 
 	@GetMapping("/calculo")
@@ -22,14 +22,15 @@ public class TemplatesController {
 		resultado.addAttribute("multiplicar", "El resultado de la multiplicacion es " + (number1 * number2));
 		resultado.addAttribute("dividir", "El resultado de la division es " + (number1 / number2));
 		resultado.addAttribute("restar", "El resultado de la resta es " + (number1 - number2));
-		return "result";
+		return "operations";
 	}
 
 	@GetMapping("/calculoError")
 	public String resultadoError(Model resultado, @RequestParam(value = "valor1", required = false) Integer number1,
 			@RequestParam(value = "valor2", required = false) Integer number2) {
+		
 		if (number1 == null || number2 == null) {
-			resultado.addAttribute("error", "Debes agregar ambos números ");
+			resultado.addAttribute("error", "Debes agregar ambos nï¿½meros ");
 			return "error";
 		}
 
@@ -37,7 +38,7 @@ public class TemplatesController {
 		resultado.addAttribute("multiplicar", "El resultado de la multiplicacion es " + (number1 * number2));
 		resultado.addAttribute("dividir", "El resultado de la division es " + (number1 / number2));
 		resultado.addAttribute("restar", "El resultado de la resta es " + (number1 - number2));
-		return "result";
+		return "operations";
 	}
 
 }

@@ -38,7 +38,7 @@ public class Controller {
 	@PostMapping
 	public Person helloWorldPost(@RequestBody @Valid Person person) {		
 		person.setLastName(null);
-		 person.setOld(person.getOld() + 2);
+		 person.setAge(person.getAge() + 2);
 		 if (!person.getDocumentType().equals("CC")) {
 			 person.setDocumentType("CC");
 		 }
@@ -47,14 +47,14 @@ public class Controller {
 	
 	@PutMapping
 	public String helloWorldPut(@RequestBody Person person) {
-		return "Hello, my name is: " + person.getName() + " " +  person.getLastName() + " " + person.getOld() + ".";
+		return "Hello, my name is: " + person.getName() + " " +  person.getLastName() + " " + person.getAge() + ".";
 	}
 	
 	
 	@DeleteMapping
 	public String helloWorldDelete(@RequestBody Person person) {
 
-		return "Hello, my name is: " + person.getName() + " " +  person.getLastName() + " " + person.getOld() + ".";
+		return "Hello, my name is: " + person.getName() + " " +  person.getLastName() + " " + person.getAge() + ".";
 
 	}
 

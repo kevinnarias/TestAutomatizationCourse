@@ -37,7 +37,7 @@ class AutomatizationCourseApplicationTests {
 		Person persona = new Person ();
 		persona.setLastName ("Apellido");
 		persona.setName ("Nombre");
-		persona.setOld (28);
+		persona.setAge (28);
 		persona.setDocumentNumber("112345678");
 		persona.setDocumentType("TI");
 		//When
@@ -47,7 +47,7 @@ class AutomatizationCourseApplicationTests {
 		
 		Person personaResultado = mapper.readValue(result.getResponse().getContentAsString(),Person.class);
 		//Then
-		Assertions.assertEquals(30, personaResultado.getOld());
+		Assertions.assertEquals(30, personaResultado.getAge());
 		Assertions.assertEquals("Nombre", personaResultado.getName());
 		Assertions.assertNull(personaResultado.getLastName());
 		Assertions.assertEquals("112345678", personaResultado.getDocumentNumber());
@@ -60,7 +60,7 @@ class AutomatizationCourseApplicationTests {
 		Person persona = new Person ();
 		persona.setLastName ("Apellido");
 		persona.setName ("Nombre");
-		persona.setOld (18);
+		persona.setAge (18);
 		persona.setDocumentNumber("112");
 		persona.setDocumentType("CC");
 		//When
@@ -82,7 +82,7 @@ class AutomatizationCourseApplicationTests {
 		Person persona = new Person ();
 		persona.setLastName ("Apellido");
 		persona.setName ("Nombre");
-		persona.setOld (18);
+		persona.setAge (18);
 		persona.setDocumentNumber("11234567891");
 		persona.setDocumentType("CC");
 		//When
@@ -99,12 +99,12 @@ class AutomatizationCourseApplicationTests {
 	@SuppressWarnings("unchecked")
 	@Test
 	//4.Cuando envio edad menor a 18 entonces sacar validacion
-	void whenOldMenor18ThenValidation() throws JsonProcessingException, Exception {
+	void whenAgeMenor18ThenValidation() throws JsonProcessingException, Exception {
 		//given
 		Person persona = new Person ();
 		persona.setLastName ("Apellido");
 		persona.setName ("Nombre");
-		persona.setOld (17);
+		persona.setAge (17);
 		persona.setDocumentNumber("112345678");
 		persona.setDocumentType("CC");
 		//When
@@ -115,7 +115,7 @@ class AutomatizationCourseApplicationTests {
 		Map<String, String> personaResultado = mapper.readValue(result.getResponse().getContentAsString(),Map.class);
 		//Then
 		
-		Assertions.assertEquals("There must be at least 18 in the test case", personaResultado.get("old"));
+		Assertions.assertEquals("There must be at least 18 in the test case", personaResultado.get("Age"));
 		
 	}
 	@Test
@@ -125,7 +125,7 @@ class AutomatizationCourseApplicationTests {
 		Person persona = new Person ();
 		persona.setLastName ("Apellido");
 		persona.setName ("Nombre");
-		persona.setOld (28);
+		persona.setAge (28);
 		persona.setDocumentNumber("112345678");
 		persona.setDocumentType("TI");
 		//When
@@ -157,7 +157,7 @@ class AutomatizationCourseApplicationTests {
 		//Then
 		//Assertions.assertEquals( "Name is mandatory", personaResultado.get("name"));
 		Assertions.assertEquals( "lastName is mandatory", personaResultado.get("lastName"));
-		Assertions.assertEquals("There must be at least 18 in the test case", personaResultado.get("old"));
+		Assertions.assertEquals("There must be at least 18 in the test case", personaResultado.get("Age"));
 		Assertions.assertEquals("Must be between 8 and 10 characters long", personaResultado.get("documentNumber"));
 		Assertions.assertEquals("Must be 2 characters long", personaResultado.get("documentType"));
 	}
@@ -171,7 +171,7 @@ class AutomatizationCourseApplicationTests {
 		persona.setLastName ("Lopera");
 		persona.setName ("Diana");
 		persona.setDocumentNumber("12345678");
-		persona.setOld (28);
+		persona.setAge (28);
 		persona.setDocumentType("CC");
 		persona.setEmail ("emailinvalido.com");
 		//When
@@ -192,7 +192,7 @@ class AutomatizationCourseApplicationTests {
 		Person persona = new Person ();
 		persona.setLastName ("Apellido");
 		persona.setName ("Nombre");
-		persona.setOld (28);
+		persona.setAge (28);
 		persona.setDocumentNumber("112345678");
 		persona.setDocumentType("CC");
 		//When
@@ -202,7 +202,7 @@ class AutomatizationCourseApplicationTests {
 		
 		Person personaResultado = mapper.readValue(result.getResponse().getContentAsString(),Person.class);
 		//Then
-		Assertions.assertEquals(30, personaResultado.getOld());
+		Assertions.assertEquals(30, personaResultado.getAge());
 		Assertions.assertEquals("Nombre", personaResultado.getName());
 		Assertions.assertNull(personaResultado.getLastName());
 		Assertions.assertEquals("112345678", personaResultado.getDocumentNumber());
@@ -216,7 +216,7 @@ class AutomatizationCourseApplicationTests {
 		Person persona = new Person ();
 		persona.setLastName ("Apellido");
 		persona.setName ("Nombre");
-		persona.setOld (28);
+		persona.setAge (28);
 		persona.setDocumentNumber("112345678");
 		persona.setDocumentType("CC");
 		//When
@@ -236,7 +236,7 @@ class AutomatizationCourseApplicationTests {
 		persona.setLastName ("Lopera");
 		persona.setName (".-D14n4-.");
 		persona.setDocumentNumber("12345678");
-		persona.setOld (28);
+		persona.setAge (28);
 		persona.setDocumentType("CC");
 		persona.setEmail ("email@invalido.com");
 		//When
