@@ -15,7 +15,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 @ExtendWith({ ScreenshotOnFailureExtension.class })
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 
-public class UIControllerTests {
+class UIControllerTests {
 	@LocalServerPort
 	private int port;
 	@Container
@@ -38,7 +38,7 @@ public class UIControllerTests {
 		this.container.getWebDriver()
 				.get("http://host.docker.internal:" + port + "/personalsoft/calculoError?valor1=5&valor2=");
 		WebElement messageElement = this.container.getWebDriver().findElementById("error");
-		Assertions.assertEquals("Debes agregar ambos números", messageElement.getText());
+		Assertions.assertEquals("Debes agregar ambos numeros", messageElement.getText());
 
 	}
 

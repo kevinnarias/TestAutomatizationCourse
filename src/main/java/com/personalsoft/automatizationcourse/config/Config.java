@@ -2,7 +2,7 @@ package com.personalsoft.automatizationcourse.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.thymeleaf.spring5.view.ThymeleafViewResolver;
+
 
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;

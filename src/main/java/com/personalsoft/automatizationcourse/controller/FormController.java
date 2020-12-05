@@ -2,6 +2,7 @@ package com.personalsoft.automatizationcourse.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,7 +24,7 @@ public class FormController {
 	@PostMapping(value = "/processForm")
 	
 	public String processForm(Model model, @ModelAttribute(value="person") Person person) {
-		if (person.getName().isBlank() || person.getLastName().isBlank()) {
+		if (StringUtils.isEmpty(person.getName()) || StringUtils.isEmpty(person.getLastName())) {
 			model.addAttribute("error", "Debes ingresar ambos valores ");
 			return "error";
 		}

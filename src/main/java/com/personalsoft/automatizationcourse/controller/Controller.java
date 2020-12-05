@@ -25,14 +25,14 @@ import com.personalsoft.automatizationcourse.model.Person;
 @RestController
 @RequestMapping(value = "api")
 public class Controller {
-
+	private static final String NAME = "Hello, my name is: ";
 	@GetMapping("{name}")
 	public String helloWorld(@PathVariable String name,
 			@RequestParam(value = "apellido", required = false) String lastName) {
 		if (lastName == null) {
-			return "Hello, my name is: " + name + ".";
+			return NAME + name + ".";
 		}
-		return "Hello, my name is: " + name + " " + lastName + ".";
+		return NAME + name + " " + lastName + ".";
 	}
 
 	@PostMapping
@@ -47,14 +47,14 @@ public class Controller {
 	
 	@PutMapping
 	public String helloWorldPut(@RequestBody Person person) {
-		return "Hello, my name is: " + person.getName() + " " +  person.getLastName() + " " + person.getAge() + ".";
+		return NAME + person.getName() + " " +  person.getLastName() + " " + person.getAge() + ".";
 	}
 	
 	
 	@DeleteMapping
 	public String helloWorldDelete(@RequestBody Person person) {
 
-		return "Hello, my name is: " + person.getName() + " " +  person.getLastName() + " " + person.getAge() + ".";
+		return NAME + person.getName() + " " +  person.getLastName() + " " + person.getAge() + ".";
 
 	}
 
